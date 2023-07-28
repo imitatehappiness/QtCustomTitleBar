@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/recources">
+        <file>style/appstyles.qss</file>
+        <file>icons/minimum.png</file>
+        <file>icons/maximum.png</file>
+        <file>icons/close.png</file>
+    </qresource>
+</RCC>

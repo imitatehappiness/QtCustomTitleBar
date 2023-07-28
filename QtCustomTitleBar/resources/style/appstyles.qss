@@ -1,0 +1,102 @@
+#MainWindow{
+    background-color: rgb(24,24,24);
+    border-bottom: 2px solid rgb(24,24,24);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#body{
+    background-color: rgb(24,24,24);
+    border-bottom: 2px rgb(24,24,24);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#header{
+    background-color: rgb(20, 20, 20);
+    border: 1px solid rgb(20, 20, 20);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+QPushButton#close:hover{
+    background-color: rgb(255, 50, 50);
+}
+
+QPushButton#close{
+    image: url(":/recources/icons/close.png");
+}
+
+QPushButton#maximum{
+    image: url(":/recources/icons/maximum.png");
+}
+
+QPushButton#minimum{
+    image: url(":/recources/icons/minimum.png");
+}
+
+QPushButton {
+    padding: 10px;
+    margin: 3px;
+    font: 16pt;
+    background-color: rgb(33, 33, 33);
+    color: #EEEEEE;
+    border-radius: 4px;
+}
+
+QPushButton:hover{
+    background-color: rgb(50, 50, 50);
+    color: #EEEEEE;
+}
+
+QPushButton:pressed {
+    border: 2px solid rgb(33, 33, 33);
+    border-radius: 4px;
+}
+
+QTableWidget QTableCornerButton::section {
+    background-color: rgb(33, 33, 33);
+    border: 1px solid rgb(33, 33, 33);
+}
+
+QScrollBar:vertical {
+     border: 2px solid rgb(33, 33, 33);
+         border-radius: 4px;
+     background:  rgb(238, 238, 238);
+}
+
+QScrollBar::handle:vertical {
+     background: rgb(33, 33, 33);
+
+}
+
+QScrollBar::add-line:vertical {
+     border: 1px solid rgb(33, 33, 33);
+     background: rgb(33, 33, 33);
+
+}
+
+QScrollBar::sub-line:vertical {
+     border: 1px solid rgb(33, 33, 33);
+     background: rgb(33, 33, 33);
+}
+
+
+QScrollBar::handle:horizontal {
+     background: rgb(33, 33, 33);
+
+ }
+
+QScrollBar::add-line:horizontal {
+     border: 1px solid rgb(33, 33, 33);
+     background: rgb(33, 33, 33);
+
+}
+
+QScrollBar::sub-line:horizontal {
+     border: 1px solid rgb(33, 33, 33);
+     background: rgb(33, 33, 33);
+}
+
+QLineEdit{
+    border: 1px solid rgb(33, 33, 33);
+}
