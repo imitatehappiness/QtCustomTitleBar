@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/imitatehappiness/QtCustomTitleBar/assets/79199956/d4d1f4ed-62d7-4c8e-b028-626cd2d6e63a" />
+</p>
+
 # Custom Title Bar Template for C++ Qt
 
 This repository contains a basic template for a custom title bar in a C++ Qt application. The custom title bar provides essential functionality, such as hiding, dragging, maximizing, and closing the window. You can use this template as a starting point in your real projects to create a more personalized and visually appealing title bar for your Qt applications.
