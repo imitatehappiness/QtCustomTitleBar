@@ -26,5 +26,6 @@ int main(int argc, char *argv[]){
 ```
 
 ## Example
-
-![Alt text](image.png)
+<p align="center">
+  <img src="https://github.com/imitatehappiness/QtCustomTitleBar/assets/79199956/4233b5c1-b95f-4a55-8ca3-29a6037c9425" />
+</p>
