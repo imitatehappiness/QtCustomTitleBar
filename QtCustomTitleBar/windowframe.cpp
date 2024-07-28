@@ -109,7 +109,7 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
 /// @param message Указатель на структуру с информацией о событии (void*).
 /// @param result Указатель на переменную для возвращения результата (long*).
 /// @return Возвращаемое значение, true если событие было обработано, иначе false.
-bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result) {
+bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, qintptr *result) {
     Q_UNUSED(eventType)
     MSG *param = static_cast<MSG *>(message);
     switch (param->message){

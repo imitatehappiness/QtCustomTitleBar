@@ -40,7 +40,7 @@ protected:
     /// Обработчик события двойного щелчка мыши в окне.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     /// Обработчик нативного события окна.
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+    bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result);
 public:
     /// Показать или скрыть кнопку минимизации окна.
     void enableMinimum(bool enable);
