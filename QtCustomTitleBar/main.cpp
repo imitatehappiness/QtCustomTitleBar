@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
     QApplication a(argc, argv);
     a.setStyle(new QProxyStyle(QStyleFactory::create("Fusion")));
 
-    QFile styleFile("resources/style/appstyles.qss");
+    QFile styleFile(":/recources/style/appstyles.qss");
     styleFile.open(QFile::ReadOnly);
     QString styleQSS = styleFile.readAll();
 

@@ -80,6 +80,7 @@ void WindowFrame::mouseMoveEvent(QMouseEvent *event) {
 /// @brief Handler for the mouse release event within the window.
 /// @param event Pointer to the mouse release event object (QMouseEvent).
 void WindowFrame::mouseReleaseEvent(QMouseEvent *event) {
+    Q_UNUSED(event);
     mPosition.setX(0);
     mPosition.setY(0);
 }
