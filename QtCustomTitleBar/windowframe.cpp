@@ -6,44 +6,41 @@
 #include <windowsx.h>
 #include <QDebug>
 
-/// @brief Конструктор класса WindowFrame.
-/// @param parent Родительский виджет.
-/// @param child Дочерний виджет, который будет добавлен в окно (опционально).
+/// @brief Constructor for the WindowFrame class.
+/// @param parent The parent widget.
+/// @param child The child widget to be added to the window (optional).
 WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     : QFrame(parent), ui(new Ui::WindowFrame){
 
     ui->setupUi(this);
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     setAttribute(Qt::WA_TranslucentBackground);
-    if(child!=nullptr) {
+    if(child != nullptr) {
         ui->body->layout()->addWidget(child);
-        mainBody=child;
-        mainBody->installEventFilter(this);
+        mMainBody = child;
+        mMainBody->installEventFilter(this);
         resize(child->size());
     }
 }
 
-
-/// @brief Деструктор класса WindowFrame.
+/// @brief Destructor for the WindowFrame class.
 WindowFrame::~WindowFrame(){
-    int subBodies=ui->body->layout()->count();
-    if(subBodies>0) {
-        for(int i=0; i<subBodies; i++) {
-            QWidget *subBody=ui->body->layout()->itemAt(i)->widget();
+    int subBodies = ui->body->layout()->count();
+    if(subBodies > 0) {
+        for(int i = 0; i < subBodies; i++) {
+            QWidget *subBody = ui->body->layout()->itemAt(i)->widget();
             delete subBody;
         }
     }
     delete ui;
 }
 
-
-/// @brief Обработчик сигнала клика на кнопке "Закрыть".
+/// @brief Handler for the "Close" button click signal.
 void WindowFrame::on_close_clicked(){
     close();
 }
 
-
-/// @brief Обработчик сигнала клика на кнопке "Максимизировать/Восстановить".
+/// @brief Handler for the "Maximize/Restore" button click signal.
 void WindowFrame::on_maximum_clicked(){
     if(isMaximized()) {
         showNormal();
@@ -52,48 +49,43 @@ void WindowFrame::on_maximum_clicked(){
     }
 }
 
-
-/// @brief Обработчик сигнала клика на кнопке "Свернуть".
+/// @brief Handler for the "Minimize" button click signal.
 void WindowFrame::on_minimum_clicked(){
     showMinimized();
 }
 
-
-/// @brief Обработчик события нажатия кнопки мыши.
-/// @param event Указатель на объект QMouseEvent с информацией о событии.
+/// @brief Handler for the mouse press event.
+/// @param event Pointer to the QMouseEvent object containing event information.
 void WindowFrame::mousePressEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
         QWidget* widget = childAt(event->x(), event->y());
-        if(widget==ui->buttons) {
-            position.setX(event->x());
-            position.setY(event->y());
+        if(widget == ui->buttons) {
+            mPosition.setX(event->x());
+            mPosition.setY(event->y());
         }
     }
 }
 
-
-/// @brief Обработчик события перемещения мыши в окне.
-/// @param event Указатель на объект события перемещения мыши (QMouseEvent).
-/// @return Нет возвращаемого значения.
+/// @brief Handler for the mouse move event within the window.
+/// @param event Pointer to the mouse move event object (QMouseEvent).
+/// @return No return value.
 void WindowFrame::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
-        if (position.x() != 0 || position.y() != 0) {
-            move(event->globalX() - position.x(), event->globalY() - position.y());
+        if (mPosition.x() != 0 || mPosition.y() != 0) {
+            move(event->globalX() - mPosition.x(), event->globalY() - mPosition.y());
         }
     }
 }
 
-
-/// @brief Обработчик события отпускания кнопки мыши в окне.
-/// @param event Указатель на объект события отпускания кнопки мыши (QMouseEvent).
+/// @brief Handler for the mouse release event within the window.
+/// @param event Pointer to the mouse release event object (QMouseEvent).
 void WindowFrame::mouseReleaseEvent(QMouseEvent *event) {
-    position.setX(0);
-    position.setY(0);
+    mPosition.setX(0);
+    mPosition.setY(0);
 }
 
-
-/// @brief Обработчик события двойного щелчка мыши в окне.
-/// @param event Указатель на объект события двойного щелчка мыши (QMouseEvent).
+/// @brief Handler for the mouse double-click event within the window.
+/// @param event Pointer to the mouse double-click event object (QMouseEvent).
 void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
         QWidget* widget = childAt(event->x(), event->y());
@@ -103,12 +95,11 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
     }
 }
 
-
-/// @brief Обработчик нативного события окна.
-/// @param eventType Тип события, в виде массива байт (QByteArray).
-/// @param message Указатель на структуру с информацией о событии (void*).
-/// @param result Указатель на переменную для возвращения результата (long*).
-/// @return Возвращаемое значение, true если событие было обработано, иначе false.
+/// @brief Handler for the native window event.
+/// @param eventType The type of event, as a byte array (QByteArray).
+/// @param message Pointer to a structure containing event information (void*).
+/// @param result Pointer to a variable for returning the result (long*).
+/// @return The return value, true if the event was handled, otherwise false.
 bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result) {
     Q_UNUSED(eventType)
     MSG *param = static_cast<MSG *>(message);
@@ -123,35 +114,35 @@ bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *
 
             *result = HTCAPTION;
 
-            if ((nX > 0) && (nX < borderSize)){
+            if ((nX > 0) && (nX < mBorderSize)){
                 *result = HTLEFT;
             }
 
-            if ((nX > width() - borderSize) && (nX < width())){
+            if ((nX > width() - mBorderSize) && (nX < width())){
                 *result = HTRIGHT;
             }
 
-            if ((nY > 0) && (nY < borderSize)){
+            if ((nY > 0) && (nY < mBorderSize)){
                 *result = HTTOP;
             }
 
-            if ((nY > height() - borderSize) && (nY < height())){
+            if ((nY > height() - mBorderSize) && (nY < height())){
                 *result = HTBOTTOM;
             }
 
-            if ((nX > 0) && (nX < borderSize) && (nY > 0) && (nY < borderSize)){
+            if ((nX > 0) && (nX < mBorderSize) && (nY > 0) && (nY < mBorderSize)){
                 *result = HTTOPLEFT;
             }
 
-            if ((nX > width() - borderSize) && (nX < width()) && (nY > 0) && (nY < borderSize)){
+            if ((nX > width() - mBorderSize) && (nX < width()) && (nY > 0) && (nY < mBorderSize)){
                 *result = HTTOPRIGHT;
             }
 
-            if ((nX > 0) && (nX < borderSize) && (nY > height() - borderSize) && (nY < height())){
+            if ((nX > 0) && (nX < mBorderSize) && (nY > height() - mBorderSize) && (nY < height())){
                 *result = HTBOTTOMLEFT;
             }
 
-            if ((nX > width() - borderSize) && (nX < width()) && (nY > height() - borderSize) && (nY < height())){
+            if ((nX > width() - mBorderSize) && (nX < width()) && (nY > height() - mBorderSize) && (nY < height())){
                 *result = HTBOTTOMRIGHT;
             }
 
@@ -162,45 +153,41 @@ bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *
     return QWidget::nativeEvent(eventType, message, result);
 }
 
-
-/// @brief Показать или скрыть кнопку минимизации окна.
-/// @param enable Если true, то кнопка будет показана, если false - скрыта.
+/// @brief Show or hide the window minimization button.
+/// @param enable If true, the button will be shown; if false, it will be hidden.
 void WindowFrame::enableMinimum(bool enable) {
     !enable ? ui->minimum->hide() : ui->minimum->show();
 }
 
-
-/// @brief Показать или скрыть кнопку максимизации окна.
-/// @param enable Если true, то кнопка будет показана, если false - скрыта.
+/// @brief Show or hide the window maximization button.
+/// @param enable If true, the button will be shown; if false, it will be hidden.
 void WindowFrame::enableMaximum(bool enable) {
     !enable ? ui->maximum->hide() : ui->maximum->show();
 }
 
-
-/// @brief Показать или скрыть кнопку закрытия окна.
-/// @param enable Если true, то кнопка будет показана, если false - скрыта.
+/// @brief Show or hide the window close button.
+/// @param enable If true, the button will be shown; if false, it will be hidden.
 void WindowFrame::enableClose(bool enable) {
     !enable ? ui->close->hide() : ui->close->show();
 }
 
-
-/// @brief Переопределение функции фильтрации событий для класса WindowFrame.
-/// @param obj Указатель на объект, для которого было сгенерировано событие.
-/// @param event Указатель на объект класса QEvent, представляющий событие.
-/// @return `true`, если событие было обработано, иначе `false`.
+/// @brief Override event filtering function for the WindowFrame class.
+/// @param obj Pointer to the object for which the event was generated.
+/// @param event Pointer to the QEvent object representing the event.
+/// @return `true` if the event was handled, otherwise `false`.
 bool WindowFrame::eventFilter(QObject *obj, QEvent *event) {
-    if(obj==mainBody) {
-        if(event->type()==QEvent::HideToParent) {
+    if(obj == mMainBody) {
+        if(event->type() == QEvent::HideToParent) {
             hide();
             return true;
         }
-        if(event->type()==QEvent::ShowToParent) {
+        if(event->type() == QEvent::ShowToParent) {
             show();
             return true;
         }
-        return QObject::eventFilter(obj,event);
+        return QObject::eventFilter(obj, event);
     } else {
-        return QFrame::eventFilter(obj,event);
+        return QFrame::eventFilter(obj, event);
     }
     return false;
 }
