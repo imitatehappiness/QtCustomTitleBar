@@ -1,12 +1,12 @@
 #MainWindow{
-    background-color: rgb(24,24,24);
-    border-bottom: 2px solid rgb(24,24,24);
+    background-color: rgb(33, 33, 33);
+    border-bottom: 2px solid rgb(33, 33, 33);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 #body{
-    background-color: rgb(24,24,24);
-    border-bottom: 2px rgb(24,24,24);
+    background-color: rgb(33, 33, 33);
+    border-bottom: 2px rgb(33, 33, 33);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -23,32 +23,33 @@ QPushButton#close:hover{
 }
 
 QPushButton#close{
+    margin-right: 5px;
     image: url(":/recources/icons/close.png");
 }
 
 QPushButton#maximum{
-    image: url(":/recources/icons/maximum.png");
+    image: url(":/recources/icons/maximize.png");
 }
 
 QPushButton#minimum{
-    image: url(":/recources/icons/minimum.png");
+    image: url(":/recources/icons/minimize.png");
 }
 
 QPushButton {
-    padding: 10px;
+    padding: 3px;
     margin: 3px;
-    font: 16pt;
-    background-color: rgb(33, 33, 33);
+    font: 10pt;
+    background-color: rgb(70, 70, 70);
     color: #EEEEEE;
     border-radius: 4px;
 }
 
 QPushButton:hover{
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(140, 140, 140);
     color: #EEEEEE;
 }
 
 QPushButton:pressed {
-    border: 2px solid rgb(33, 33, 33);
+    border: 2px solid rgb(24, 24, 24);
     border-radius: 4px;
 }
