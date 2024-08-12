@@ -25,8 +25,6 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
     ui->minimum->setIcon(QIcon(":/recources/icons/minimize.png"));
 
-
-
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     setAttribute(Qt::WA_TranslucentBackground);
     if(child != nullptr) {
