@@ -34,5 +34,8 @@ int main(int argc, char *argv[]){
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/442e8a02-0dca-41b2-addd-f405ec88d353" />
+  <img src="https://github.com/user-attachments/assets/8e769ac7-2693-47e9-9858-a9f0bf32c92b" />
+  <img src="https://github.com/user-attachments/assets/f5fe5fcf-b927-4dad-bf1d-a9c2ace786f2" />
 </p>
+
+
