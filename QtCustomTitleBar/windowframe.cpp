@@ -5,6 +5,8 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <QDebug>
+#include <QTimer>
+#include <QTime>
 
 /// @brief Constructor for the WindowFrame class.
 /// @param parent The parent widget.
@@ -34,6 +36,14 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
         resize(child->size());
     }
     isCollapse = false;
+
+    QTimer *t = new QTimer(this);
+    t->setInterval(1000);
+    connect(t, &QTimer::timeout, [&]() {
+       QString time1 = QTime::currentTime().toString();
+       ui->clock->setText(time1);
+    } );
+    t->start();
 }
 
 /// @brief Destructor for the WindowFrame class.
