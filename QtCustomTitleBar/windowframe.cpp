@@ -13,6 +13,20 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     : QFrame(parent), ui(new Ui::WindowFrame){
 
     ui->setupUi(this);
+
+    QPixmap pixmap(":/recources/icons/icon.png");
+    ui->icon->setPixmap(pixmap);
+    ui->icon->setScaledContents(true);
+    ui->icon->setAlignment(Qt::AlignCenter);
+    ui->icon->resize(24, 24);
+
+    ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
+    ui->close->setIcon(QIcon(":/recources/icons/close.png"));
+    ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
+    ui->minimum->setIcon(QIcon(":/recources/icons/minimize.png"));
+
+
+
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     setAttribute(Qt::WA_TranslucentBackground);
     if(child != nullptr) {
@@ -21,6 +35,7 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
         mMainBody->installEventFilter(this);
         resize(child->size());
     }
+    isCollapse = false;
 }
 
 /// @brief Destructor for the WindowFrame class.
@@ -43,8 +58,10 @@ void WindowFrame::on_close_clicked(){
 /// @brief Handler for the "Maximize/Restore" button click signal.
 void WindowFrame::on_maximum_clicked(){
     if(isMaximized()) {
+        ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
         showNormal();
     } else {
+        ui->maximum->setIcon(QIcon(":/recources/icons/default_size.png"));
         showMaximized();
     }
 }
@@ -53,6 +70,19 @@ void WindowFrame::on_maximum_clicked(){
 void WindowFrame::on_minimum_clicked(){
     showMinimized();
 }
+
+void WindowFrame::on_collapse_clicked() {
+    if (isCollapse) {
+        ui->body->setVisible(true);
+        isCollapse = false;
+        ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
+    } else {
+        ui->body->setVisible(false);
+        isCollapse = true;
+        ui->collapse->setIcon(QIcon(":/recources/icons/collapse_show.png"));
+    }
+}
+
 
 /// @brief Handler for the mouse press event.
 /// @param event Pointer to the QMouseEvent object containing event information.
@@ -192,3 +222,5 @@ bool WindowFrame::eventFilter(QObject *obj, QEvent *event) {
     }
     return false;
 }
+
+

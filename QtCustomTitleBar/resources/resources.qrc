@@ -5,5 +5,8 @@
         <file>icons/minimize.png</file>
         <file>icons/maximize.png</file>
         <file>icons/icon.png</file>
+        <file>icons/collapse_hide.png</file>
+        <file>icons/collapse_show.png</file>
+        <file>icons/default_size.png</file>
     </qresource>
 </RCC>

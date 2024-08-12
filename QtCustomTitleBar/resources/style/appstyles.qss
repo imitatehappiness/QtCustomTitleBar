@@ -24,20 +24,11 @@ QPushButton#close:hover{
 
 QPushButton#close{
     margin-right: 5px;
-    image: url(":/recources/icons/close.png");
-}
-
-QPushButton#maximum{
-    image: url(":/recources/icons/maximize.png");
-}
-
-QPushButton#minimum{
-    image: url(":/recources/icons/minimize.png");
 }
 
 QPushButton {
-    padding: 3px;
-    margin: 3px;
+    padding: 2px;
+    margin: 2px;
     font: 10pt;
     background-color: rgb(70, 70, 70);
     color: #EEEEEE;
@@ -50,6 +41,6 @@ QPushButton:hover{
 }
 
 QPushButton:pressed {
-    border: 2px solid rgb(24, 24, 24);
+    border: 1px solid rgb(24, 24, 24);
     border-radius: 4px;
 }

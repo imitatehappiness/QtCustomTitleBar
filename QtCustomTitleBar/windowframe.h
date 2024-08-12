@@ -43,7 +43,8 @@ private slots:
     void on_maximum_clicked();
     /// Handler for the "Minimize" button click signal.
     void on_minimum_clicked();
-
+    /// Handler for the "Collapse" button click signal.
+    void on_collapse_clicked();
 private:
     /// Pointer to the user interface object.
     Ui::WindowFrame *ui;
@@ -53,6 +54,8 @@ private:
     QPoint mPosition;
     /// Size of the window borders.
     int mBorderSize;
+    ///
+    bool isCollapse;
 };
 
 #endif // WINDOWFRAME_H
