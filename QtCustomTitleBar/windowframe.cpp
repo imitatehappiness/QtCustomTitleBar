@@ -1,9 +1,10 @@
 #include "windowframe.h"
 #include "ui_windowframe.h"
 
-#include <QMouseEvent>
 #include <windows.h>
 #include <windowsx.h>
+
+#include <QMouseEvent>
 #include <QDebug>
 #include <QTimer>
 #include <QTime>
@@ -44,6 +45,8 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     : QFrame(parent), ui(new Ui::WindowFrame){
 
     ui->setupUi(this);
+
+    initMenuBar();
     initIcons();
     initTimer();
 
@@ -56,18 +59,10 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
         resize(child->size());
     }
     mIsCollapse = false;
-    setWindowOpacity(0.95);
 }
 
 /// @brief Destructor for the WindowFrame class.
 WindowFrame::~WindowFrame(){
-    int subBodies = ui->body->layout()->count();
-    if(subBodies > 0) {
-        for(int i = 0; i < subBodies; i++) {
-            QWidget *subBody = ui->body->layout()->itemAt(i)->widget();
-            delete subBody;
-        }
-    }
     delete ui;
 }
 
@@ -82,6 +77,15 @@ void WindowFrame::initIcons(){
     ui->close->setIcon(QIcon(":/recources/icons/close.png"));
     ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
     ui->minimum->setIcon(QIcon(":/recources/icons/minimize.png"));
+}
+
+void WindowFrame::initMenuBar(){
+    mMenuBar = new QMenuBar();
+    ui->body->layout()->setMenuBar(mMenuBar);
+    QMenu *settingsMenu = mMenuBar->addMenu(tr("&Settings"));
+
+    QAction *exitAction = settingsMenu->addAction(tr("&Exit"));
+    connect(exitAction, &QAction::triggered, this, &WindowFrame::close);
 }
 
 void WindowFrame::initTimer(){

@@ -27,6 +27,11 @@ QPushButton {
     border-radius: 4px;
 }
 
+QMenuBar{
+    background-color: #eee;
+    color: rgb(70, 70, 70);
+}
+
 QPushButton:hover{
     background-color: rgb(140, 140, 140);
     color: #EEEEEE;

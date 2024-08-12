@@ -2,6 +2,7 @@
 #define WINDOWFRAME_H
 
 #include <QFrame>
+#include <QMenuBar>
 
 namespace Ui {
 class WindowFrame;
@@ -17,6 +18,7 @@ public:
 public:
     void initTimer();
     void initIcons();
+    void initMenuBar();
 
     /// Show or hide the window minimization button.
     void enableMinimum(bool enable);
@@ -59,6 +61,8 @@ private:
     int mBorderSize;
     /// Collapse flag.
     bool mIsCollapse;
+    /// Menu under header.
+    QMenuBar *mMenuBar;
 };
 
 #endif // WINDOWFRAME_H
