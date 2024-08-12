@@ -30,12 +30,12 @@ int main(int argc, char *argv[]){
     WindowFrame w(nullptr, new MainWindow());
     w.show();
     return a.exec();
+
 }
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8e769ac7-2693-47e9-9858-a9f0bf32c92b" />
-  <img src="https://github.com/user-attachments/assets/f5fe5fcf-b927-4dad-bf1d-a9c2ace786f2" />
+  <img src="https://github.com/user-attachments/assets/6851ae3c-a5ca-4b38-a574-353573481ff7" />
+  <img src="https://github.com/user-attachments/assets/4db680c3-2ed4-45f1-b385-d73011ff6c39" />
 </p>
-
 
