@@ -15,6 +15,9 @@ public:
     ~WindowFrame();
 
 public:
+    void initTimer();
+    void initIcons();
+
     /// Show or hide the window minimization button.
     void enableMinimum(bool enable);
     /// Show or hide the window maximization button.
@@ -54,8 +57,8 @@ private:
     QPoint mPosition;
     /// Size of the window borders.
     int mBorderSize;
-    ///
-    bool isCollapse;
+    /// Collapse flag.
+    bool mIsCollapse;
 };
 
 #endif // WINDOWFRAME_H

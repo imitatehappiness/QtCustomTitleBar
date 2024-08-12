@@ -67,7 +67,7 @@
        <number>0</number>
       </property>
       <item row="0" column="0">
-       <widget class="QWidget" name="buttons" native="true">
+       <widget class="QWidget" name="LHeader" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="spacing">
           <number>0</number>
@@ -124,8 +124,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+            </font>
+           </property>
            <property name="styleSheet">
-            <string notr="true">color: #eee; margin-left:10px;</string>
+            <string notr="true">color: #eee; margin-left:5px;</string>
            </property>
            <property name="text">
             <string>Custom Title Bar</string>

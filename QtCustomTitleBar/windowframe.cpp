@@ -8,6 +8,35 @@
 #include <QTimer>
 #include <QTime>
 
+QString headerDefaultStyle = QStringLiteral(
+    "#header {"
+    "    background-color: rgb(20, 20, 20);"
+    "    border: 1px solid rgb(20, 20, 20);"
+    "    border-top-left-radius: 10px;"
+    "    border-top-right-radius: 10px;"
+    "}"
+);
+
+QString headerCollapseStyle = QStringLiteral(
+    "#header {"
+    "    background-color: rgb(20, 20, 20);"
+    "    border: 2px solid rgb(20, 20, 20);"
+    "    border-top-left-radius: 10px;"
+    "    border-top-right-radius: 10px;"
+    "    border-bottom-left-radius: 10px;"
+    "    border-bottom-right-radius: 10px;"
+    "}"
+);
+
+QString headerMaximizeStyle = QStringLiteral(
+    "#header {"
+    "    background-color: rgb(20, 20, 20);"
+    "    border: 1px solid rgb(20, 20, 20);"
+    "    border-top-left-radius: 0px;"
+    "    border-top-right-radius: 0px;"
+    "}"
+);
+
 /// @brief Constructor for the WindowFrame class.
 /// @param parent The parent widget.
 /// @param child The child widget to be added to the window (optional).
@@ -15,17 +44,8 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     : QFrame(parent), ui(new Ui::WindowFrame){
 
     ui->setupUi(this);
-
-    QPixmap pixmap(":/recources/icons/icon.png");
-    ui->icon->setPixmap(pixmap);
-    ui->icon->setScaledContents(true);
-    ui->icon->setAlignment(Qt::AlignCenter);
-    ui->icon->resize(24, 24);
-
-    ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
-    ui->close->setIcon(QIcon(":/recources/icons/close.png"));
-    ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
-    ui->minimum->setIcon(QIcon(":/recources/icons/minimize.png"));
+    initIcons();
+    initTimer();
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -35,15 +55,8 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
         mMainBody->installEventFilter(this);
         resize(child->size());
     }
-    isCollapse = false;
-
-    QTimer *t = new QTimer(this);
-    t->setInterval(1000);
-    connect(t, &QTimer::timeout, [&]() {
-       QString time1 = QTime::currentTime().toString();
-       ui->clock->setText(time1);
-    } );
-    t->start();
+    mIsCollapse = false;
+    setWindowOpacity(0.95);
 }
 
 /// @brief Destructor for the WindowFrame class.
@@ -58,6 +71,29 @@ WindowFrame::~WindowFrame(){
     delete ui;
 }
 
+void WindowFrame::initIcons(){
+    QPixmap pixmap(":/recources/icons/icon.png");
+    ui->icon->setPixmap(pixmap);
+    ui->icon->setScaledContents(true);
+    ui->icon->setAlignment(Qt::AlignCenter);
+    ui->icon->resize(24, 24);
+
+    ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
+    ui->close->setIcon(QIcon(":/recources/icons/close.png"));
+    ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
+    ui->minimum->setIcon(QIcon(":/recources/icons/minimize.png"));
+}
+
+void WindowFrame::initTimer(){
+    QTimer *t = new QTimer(this);
+    t->setInterval(1000);
+    connect(t, &QTimer::timeout, [&]() {
+       QString time1 = QTime::currentTime().toString();
+       ui->clock->setText(time1);
+    } );
+    t->start();
+}
+
 /// @brief Handler for the "Close" button click signal.
 void WindowFrame::on_close_clicked(){
     close();
@@ -68,9 +104,11 @@ void WindowFrame::on_maximum_clicked(){
     if(isMaximized()) {
         ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
         showNormal();
+        ui->header->setStyleSheet(headerDefaultStyle);
     } else {
         ui->maximum->setIcon(QIcon(":/recources/icons/default_size.png"));
         showMaximized();
+        ui->header->setStyleSheet(headerMaximizeStyle);
     }
 }
 
@@ -79,15 +117,18 @@ void WindowFrame::on_minimum_clicked(){
     showMinimized();
 }
 
+/// @brief Handler for the "Collapse" button click signal.
 void WindowFrame::on_collapse_clicked() {
-    if (isCollapse) {
+    if (mIsCollapse) {
         ui->body->setVisible(true);
-        isCollapse = false;
+        mIsCollapse = false;
         ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
+        isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerDefaultStyle);
     } else {
         ui->body->setVisible(false);
-        isCollapse = true;
+        mIsCollapse = true;
         ui->collapse->setIcon(QIcon(":/recources/icons/collapse_show.png"));
+        isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerCollapseStyle);
     }
 }
 
@@ -97,7 +138,7 @@ void WindowFrame::on_collapse_clicked() {
 void WindowFrame::mousePressEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
         QWidget* widget = childAt(event->x(), event->y());
-        if(widget == ui->buttons) {
+        if(widget == ui->LHeader) {
             mPosition.setX(event->x());
             mPosition.setY(event->y());
         }
@@ -128,8 +169,16 @@ void WindowFrame::mouseReleaseEvent(QMouseEvent *event) {
 void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
         QWidget* widget = childAt(event->x(), event->y());
-        if(widget == ui->buttons) {
-            isMaximized() ? showNormal() : showMaximized();
+        if(widget == ui->LHeader) {
+            if(isMaximized()) {
+                ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
+                showNormal();
+                ui->header->setStyleSheet(headerDefaultStyle);
+            } else {
+                ui->maximum->setIcon(QIcon(":/recources/icons/default_size.png"));
+                showMaximized();
+                ui->header->setStyleSheet(headerMaximizeStyle);
+            }
         }
     }
 }
