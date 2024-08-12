@@ -36,5 +36,5 @@ int main(int argc, char *argv[]){
 
 ## Example
 <p align="center">
-  <img src="https://github.com/imitatehappiness/QtCustomTitleBar/assets/79199956/4233b5c1-b95f-4a55-8ca3-29a6037c9425" />
+  <img src="https://github.com/user-attachments/assets/bb0e001a-e9b4-4258-a681-a16e0af871e6" />
 </p>
