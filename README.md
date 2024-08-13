@@ -33,6 +33,7 @@ int main(int argc, char *argv[]){
 
 }
 ```
+## Example
 
 <p align="center">
   <video src="https://github.com/user-attachments/assets/efec8e4b-6723-4c27-be9b-268382ae9e8c" />
