@@ -38,6 +38,13 @@ QString headerMaximizeStyle = QStringLiteral(
     "}"
 );
 
+const QString closeIcon         = ":/recources/icons/close_light.png";
+const QString collapseHideIcon  = ":/recources/icons/collapse_hide_light.png";
+const QString collapseShowIcon  = ":/recources/icons/collapse_show_light.png";
+const QString maximizeIcon      = ":/recources/icons/maximize_light.png";
+const QString minimizeIcon      = ":/recources/icons/minimize_light.png";
+const QString defaultSizeIcon   = ":/recources/icons/default_size_light.png";
+
 /// @brief Constructor for the WindowFrame class.
 /// @param parent The parent widget.
 /// @param child The child widget to be added to the window (optional).
@@ -73,10 +80,10 @@ void WindowFrame::initIcons(){
     ui->icon->setAlignment(Qt::AlignCenter);
     ui->icon->resize(24, 24);
 
-    ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
-    ui->close->setIcon(QIcon(":/recources/icons/close.png"));
-    ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
-    ui->minimum->setIcon(QIcon(":/recources/icons/minimize.png"));
+    ui->collapse->setIcon(QIcon(collapseHideIcon));
+    ui->close->setIcon(QIcon(closeIcon));
+    ui->maximum->setIcon(QIcon(maximizeIcon));
+    ui->minimum->setIcon(QIcon(minimizeIcon));
 }
 
 void WindowFrame::initMenuBar(){
@@ -86,6 +93,17 @@ void WindowFrame::initMenuBar(){
 
     QAction *exitAction = settingsMenu->addAction(tr("&Exit"));
     connect(exitAction, &QAction::triggered, this, &WindowFrame::close);
+}
+
+void WindowFrame::showHeaderContextMenu(const QPoint &pos){
+    QMenu contextMenu(this);
+
+    QAction *exitAction = contextMenu.addAction(tr("&Exit"));
+    connect(exitAction, &QAction::triggered, this, &WindowFrame::close);
+
+    contextMenu.addAction(exitAction);
+
+    contextMenu.exec(mapToGlobal(pos));
 }
 
 void WindowFrame::initTimer(){
@@ -106,11 +124,11 @@ void WindowFrame::on_close_clicked(){
 /// @brief Handler for the "Maximize/Restore" button click signal.
 void WindowFrame::on_maximum_clicked(){
     if(isMaximized()) {
-        ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
+        ui->maximum->setIcon(QIcon(maximizeIcon));
         showNormal();
         ui->header->setStyleSheet(headerDefaultStyle);
     } else {
-        ui->maximum->setIcon(QIcon(":/recources/icons/default_size.png"));
+        ui->maximum->setIcon(QIcon(defaultSizeIcon));
         showMaximized();
         ui->header->setStyleSheet(headerMaximizeStyle);
     }
@@ -126,12 +144,12 @@ void WindowFrame::on_collapse_clicked() {
     if (mIsCollapse) {
         ui->body->setVisible(true);
         mIsCollapse = false;
-        ui->collapse->setIcon(QIcon(":/recources/icons/collapse_hide.png"));
+        ui->collapse->setIcon(QIcon(collapseHideIcon));
         isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerDefaultStyle);
     } else {
         ui->body->setVisible(false);
         mIsCollapse = true;
-        ui->collapse->setIcon(QIcon(":/recources/icons/collapse_show.png"));
+        ui->collapse->setIcon(QIcon(collapseShowIcon));
         isMaximized() ? ui->header->setStyleSheet(headerMaximizeStyle) : ui->header->setStyleSheet(headerCollapseStyle);
     }
 }
@@ -146,6 +164,9 @@ void WindowFrame::mousePressEvent(QMouseEvent *event) {
             mPosition.setX(event->x());
             mPosition.setY(event->y());
         }
+    }
+    if (event->button() == Qt::RightButton) {
+        showHeaderContextMenu(event->pos());
     }
 }
 
@@ -175,11 +196,11 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
         QWidget* widget = childAt(event->x(), event->y());
         if(widget == ui->LHeader) {
             if(isMaximized()) {
-                ui->maximum->setIcon(QIcon(":/recources/icons/maximize.png"));
+                ui->maximum->setIcon(QIcon(maximizeIcon));
                 showNormal();
                 ui->header->setStyleSheet(headerDefaultStyle);
             } else {
-                ui->maximum->setIcon(QIcon(":/recources/icons/default_size.png"));
+                ui->maximum->setIcon(QIcon(defaultSizeIcon));
                 showMaximized();
                 ui->header->setStyleSheet(headerMaximizeStyle);
             }

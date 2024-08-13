@@ -19,6 +19,7 @@ public:
     void initTimer();
     void initIcons();
     void initMenuBar();
+    void showHeaderContextMenu(const QPoint &pos);
 
     /// Show or hide the window minimization button.
     void enableMinimum(bool enable);

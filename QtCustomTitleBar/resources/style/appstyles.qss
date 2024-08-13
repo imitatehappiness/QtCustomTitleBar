@@ -22,7 +22,7 @@ QPushButton {
     padding: 2px;
     margin: 2px;
     font: 10pt;
-    background-color: rgb(70, 70, 70);
+    background-color: rgb(20, 20, 20);
     color: #EEEEEE;
     border-radius: 4px;
 }
@@ -33,7 +33,7 @@ QMenuBar{
 }
 
 QPushButton:hover{
-    background-color: rgb(140, 140, 140);
+    background-color: rgb(60, 60, 60);
     color: #EEEEEE;
 }
 
