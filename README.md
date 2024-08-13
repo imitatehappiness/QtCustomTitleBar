@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/imitatehappiness/QtCustomTitleBar/assets/79199956/d4d1f4ed-62d7-4c8e-b028-626cd2d6e63a" />
+  <img src="https://github.com/user-attachments/assets/9b3d2fd4-e9e8-4e7a-aaf2-a78957b6aa7b" />
 </p>
 
 # Custom Title Bar Template for C++ Qt
@@ -45,8 +45,16 @@ int main(int argc, char *argv[]){
 ## Example
 
 <p align="center">
-  <video src="https://github.com/user-attachments/assets/6da88f11-a2d4-4866-b2e0-52cb83bb3e80" />
+  <video src="https://github.com/user-attachments/assets/d4fdcd9a-8565-40e6-85cc-cbb7d70438e5" />
 </p>
+
+
+
+
+
+
+
+
 
 
 
