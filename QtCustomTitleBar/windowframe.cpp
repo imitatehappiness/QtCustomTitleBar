@@ -128,13 +128,12 @@ void WindowFrame::on_close_clicked(){
 void WindowFrame::on_maximum_clicked(){
     if(isMaximized()) {
         ui->maximum->setIcon(QIcon(maximizeIcon));
+        mIsCollapse ? ui->header->setStyleSheet(headerCollapseStyle) : ui->header->setStyleSheet(headerDefaultStyle);
         showNormal();
-        ui->header->setStyleSheet(headerDefaultStyle);
-
     } else {
         ui->maximum->setIcon(QIcon(defaultSizeIcon));
-        showMaximized();
         ui->header->setStyleSheet(headerMaximizeStyle);
+        showMaximized();
     }
 }
 
@@ -204,12 +203,12 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
         if(widget == ui->LHeader) {
             if(isMaximized()) {
                 ui->maximum->setIcon(QIcon(maximizeIcon));
-                showNormal();
                 ui->header->setStyleSheet(headerDefaultStyle);
+                showNormal();
             } else {
                 ui->maximum->setIcon(QIcon(defaultSizeIcon));
-                showMaximized();
                 ui->header->setStyleSheet(headerMaximizeStyle);
+                showMaximized();
             }
         }
     }
