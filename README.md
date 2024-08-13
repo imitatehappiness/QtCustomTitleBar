@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9b3d2fd4-e9e8-4e7a-aaf2-a78957b6aa7b" />
+  <img src="https://github.com/user-attachments/assets/1bc0abb6-bbb1-442e-980e-addacc69e9e8" />
 </p>
 
 # Custom Title Bar Template for C++ Qt
@@ -25,6 +25,9 @@ This repository contains a basic template for a custom title bar in a C++ Qt app
 ### 3. Context Menu
 - **Right-Click Menu on Header**: Right-clicking the header brings up a context menu with an "Exit" option to close the window.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fd5da370-6855-4240-b46b-3f9a5602e51c">
+</p>
 
 ## Basic usage
 ``` C++
@@ -47,8 +50,6 @@ int main(int argc, char *argv[]){
 <p align="center">
   <video src="https://github.com/user-attachments/assets/d4fdcd9a-8565-40e6-85cc-cbb7d70438e5" />
 </p>
-
-
 
 
 
