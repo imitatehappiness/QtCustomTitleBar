@@ -3,6 +3,7 @@
 
 #include <QFrame>
 #include <QMenuBar>
+#include <QStatusBar>
 
 namespace Ui {
 class WindowFrame;

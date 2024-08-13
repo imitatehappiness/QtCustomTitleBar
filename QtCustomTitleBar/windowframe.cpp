@@ -1,4 +1,5 @@
 #include "windowframe.h"
+#include "qstatusbar.h"
 #include "ui_windowframe.h"
 
 #include <windows.h>
@@ -8,6 +9,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QTime>
+#include <QStatusBar>
 
 QString headerDefaultStyle = QStringLiteral(
     "#header {"
@@ -52,6 +54,7 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     : QFrame(parent), ui(new Ui::WindowFrame){
 
     ui->setupUi(this);
+    mBorderSize = 5;
 
     initMenuBar();
     initIcons();
@@ -127,6 +130,7 @@ void WindowFrame::on_maximum_clicked(){
         ui->maximum->setIcon(QIcon(maximizeIcon));
         showNormal();
         ui->header->setStyleSheet(headerDefaultStyle);
+
     } else {
         ui->maximum->setIcon(QIcon(defaultSizeIcon));
         showMaximized();
@@ -165,8 +169,11 @@ void WindowFrame::mousePressEvent(QMouseEvent *event) {
             mPosition.setY(event->y());
         }
     }
-    if (event->button() == Qt::RightButton) {
-        showHeaderContextMenu(event->pos());
+    if (event->button() == Qt::RightButton ) {
+        QWidget* widget = childAt(event->x(), event->y());
+        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon){
+            showHeaderContextMenu(event->pos());
+        }
     }
 }
 
@@ -216,51 +223,39 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
 bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result) {
     Q_UNUSED(eventType)
     MSG *param = static_cast<MSG *>(message);
-    switch (param->message){
-        case WM_NCHITTEST:{
-            int nX = GET_X_LPARAM(param->lParam) - geometry().x();
-            int nY = GET_Y_LPARAM(param->lParam) - geometry().y();
 
-            if (childAt(nX, nY) != ui->header && childAt(nX, nY) != ui->bodyFrame){
-                return QWidget::nativeEvent(eventType, message, result);
-            }
+    if (param->message == WM_NCHITTEST) {
+        QPoint globalPos(GET_X_LPARAM(param->lParam), GET_Y_LPARAM(param->lParam));
+        QPoint localPos = mapFromGlobal(globalPos);
 
-            *result = HTCAPTION;
+        int nX = localPos.x();
+        int nY = localPos.y();
 
-            if ((nX > 0) && (nX < mBorderSize)){
+        if (nX >= 0 && nX < mBorderSize) {
+            if (nY >= 0 && nY < mBorderSize) {
+                *result = HTTOPLEFT;
+            } else if (nY >= height() - mBorderSize) {
+                *result = HTBOTTOMLEFT;
+            } else {
                 *result = HTLEFT;
             }
-
-            if ((nX > width() - mBorderSize) && (nX < width())){
+        } else if (nX >= width() - mBorderSize) {
+            if (nY >= 0 && nY < mBorderSize) {
+                *result = HTTOPRIGHT;
+            } else if (nY >= height() - mBorderSize) {
+                *result = HTBOTTOMRIGHT;
+            } else {
                 *result = HTRIGHT;
             }
-
-            if ((nY > 0) && (nY < mBorderSize)){
-                *result = HTTOP;
-            }
-
-            if ((nY > height() - mBorderSize) && (nY < height())){
-                *result = HTBOTTOM;
-            }
-
-            if ((nX > 0) && (nX < mBorderSize) && (nY > 0) && (nY < mBorderSize)){
-                *result = HTTOPLEFT;
-            }
-
-            if ((nX > width() - mBorderSize) && (nX < width()) && (nY > 0) && (nY < mBorderSize)){
-                *result = HTTOPRIGHT;
-            }
-
-            if ((nX > 0) && (nX < mBorderSize) && (nY > height() - mBorderSize) && (nY < height())){
-                *result = HTBOTTOMLEFT;
-            }
-
-            if ((nX > width() - mBorderSize) && (nX < width()) && (nY > height() - mBorderSize) && (nY < height())){
-                *result = HTBOTTOMRIGHT;
-            }
-
-            return true;
+        } else if (nY >= 0 && nY < mBorderSize) {
+            *result = HTTOP;
+        } else if (nY >= height() - mBorderSize) {
+            *result = HTBOTTOM;
+        } else {
+            return QWidget::nativeEvent(eventType, message, result);
         }
+
+        return true;
     }
 
     return QWidget::nativeEvent(eventType, message, result);
