@@ -35,7 +35,9 @@ int main(int argc, char *argv[]){
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6851ae3c-a5ca-4b38-a574-353573481ff7" />
-  <img src="https://github.com/user-attachments/assets/4db680c3-2ed4-45f1-b385-d73011ff6c39" />
+  <video src="https://github.com/user-attachments/assets/efec8e4b-6723-4c27-be9b-268382ae9e8c" />
 </p>
+
+
+
 
