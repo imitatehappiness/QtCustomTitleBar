@@ -160,7 +160,7 @@ void WindowFrame::on_collapse_clicked() {
 void WindowFrame::mousePressEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
         QWidget* widget = childAt(event->x(), event->y());
-        if(widget == ui->LHeader) {
+        if(widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
             mPosition.setX(event->x());
             mPosition.setY(event->y());
         }
