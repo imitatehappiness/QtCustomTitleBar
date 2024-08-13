@@ -200,7 +200,7 @@ bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *
             int nX = GET_X_LPARAM(param->lParam) - geometry().x();
             int nY = GET_Y_LPARAM(param->lParam) - geometry().y();
 
-            if (childAt(nX, nY) != ui->header && childAt(nX, nY) != ui->body){
+            if (childAt(nX, nY) != ui->header && childAt(nX, nY) != ui->bodyFrame){
                 return QWidget::nativeEvent(eventType, message, result);
             }
 
