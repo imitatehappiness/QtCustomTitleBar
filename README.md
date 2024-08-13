@@ -25,9 +25,12 @@ This repository contains a basic template for a custom title bar in a C++ Qt app
 ### 3. Context Menu
 - **Right-Click Menu on Header**: Right-clicking the header brings up a context menu with an "Exit" option to close the window.
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/fd5da370-6855-4240-b46b-3f9a5602e51c">
-</p>
+<details>
+  <summary>Preview</summary>
+  <p align="center">
+    <img src="https://github.com/user-attachments/assets/fd5da370-6855-4240-b46b-3f9a5602e51c">
+  </p>
+</details>
 
 ## Basic usage
 ``` C++
