@@ -6,11 +6,14 @@
 #include <QStyleFactory>
 #include <QFile>
 
+const QString style = "Fusion";
+const QString appstylePath = ":/recources/style/appstyles.qss";
+
 int main(int argc, char *argv[]){
     QApplication a(argc, argv);
-    a.setStyle(new QProxyStyle(QStyleFactory::create("Fusion")));
+    a.setStyle(new QProxyStyle(QStyleFactory::create(style)));
 
-    QFile styleFile(":/recources/style/appstyles.qss");
+    QFile styleFile(appstylePath);
     styleFile.open(QFile::ReadOnly);
     QString styleQSS = styleFile.readAll();
 

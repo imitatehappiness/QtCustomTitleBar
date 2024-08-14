@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QMenuBar>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -13,7 +14,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+private:
+    void initMenuBar();
+    void initTimer();
 private:
     Ui::MainWindow *ui;
+    QMenuBar *mMenuBar;
 };

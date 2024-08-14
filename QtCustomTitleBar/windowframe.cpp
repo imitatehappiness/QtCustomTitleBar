@@ -1,17 +1,14 @@
 #include "windowframe.h"
-#include "qstatusbar.h"
 #include "ui_windowframe.h"
 
 #include <windows.h>
 #include <windowsx.h>
 
 #include <QMouseEvent>
-#include <QDebug>
-#include <QTimer>
-#include <QTime>
-#include <QStatusBar>
 
-QString headerDefaultStyle = QStringLiteral(
+const QString title = "Custom Title Bar";
+
+const QString headerDefaultStyle = QStringLiteral(
     "#header {"
     "    background-color: rgb(20, 20, 20);"
     "    border: 1px solid rgb(20, 20, 20);"
@@ -20,7 +17,7 @@ QString headerDefaultStyle = QStringLiteral(
     "}"
 );
 
-QString headerCollapseStyle = QStringLiteral(
+const QString headerCollapseStyle = QStringLiteral(
     "#header {"
     "    background-color: rgb(20, 20, 20);"
     "    border: 2px solid rgb(20, 20, 20);"
@@ -31,7 +28,7 @@ QString headerCollapseStyle = QStringLiteral(
     "}"
 );
 
-QString headerMaximizeStyle = QStringLiteral(
+const QString headerMaximizeStyle = QStringLiteral(
     "#header {"
     "    background-color: rgb(20, 20, 20);"
     "    border: 1px solid rgb(20, 20, 20);"
@@ -40,6 +37,7 @@ QString headerMaximizeStyle = QStringLiteral(
     "}"
 );
 
+const QString appIcon           = ":/recources/icons/icon.png";
 const QString closeIcon         = ":/recources/icons/close_light.png";
 const QString collapseHideIcon  = ":/recources/icons/collapse_hide_light.png";
 const QString collapseShowIcon  = ":/recources/icons/collapse_show_light.png";
@@ -56,9 +54,9 @@ WindowFrame::WindowFrame(QWidget *parent, QWidget *child)
     ui->setupUi(this);
     mBorderSize = 5;
 
-    initMenuBar();
     initIcons();
-    initTimer();
+
+    ui->title->setText(title);
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -76,8 +74,9 @@ WindowFrame::~WindowFrame(){
     delete ui;
 }
 
+/// @brief Init frame icons.
 void WindowFrame::initIcons(){
-    QPixmap pixmap(":/recources/icons/icon.png");
+    QPixmap pixmap(appIcon);
     ui->icon->setPixmap(pixmap);
     ui->icon->setScaledContents(true);
     ui->icon->setAlignment(Qt::AlignCenter);
@@ -89,15 +88,8 @@ void WindowFrame::initIcons(){
     ui->minimum->setIcon(QIcon(minimizeIcon));
 }
 
-void WindowFrame::initMenuBar(){
-    mMenuBar = new QMenuBar();
-    ui->body->layout()->setMenuBar(mMenuBar);
-    QMenu *settingsMenu = mMenuBar->addMenu(tr("&Settings"));
-
-    QAction *exitAction = settingsMenu->addAction(tr("&Exit"));
-    connect(exitAction, &QAction::triggered, this, &WindowFrame::close);
-}
-
+/// @brief Show header menu.
+/// @param pos position mouse click.
 void WindowFrame::showHeaderContextMenu(const QPoint &pos){
     QMenu contextMenu(this);
 
@@ -105,18 +97,7 @@ void WindowFrame::showHeaderContextMenu(const QPoint &pos){
     connect(exitAction, &QAction::triggered, this, &WindowFrame::close);
 
     contextMenu.addAction(exitAction);
-
     contextMenu.exec(mapToGlobal(pos));
-}
-
-void WindowFrame::initTimer(){
-    QTimer *t = new QTimer(this);
-    t->setInterval(1000);
-    connect(t, &QTimer::timeout, [&]() {
-       QString time1 = QTime::currentTime().toString();
-       ui->clock->setText(time1);
-    } );
-    t->start();
 }
 
 /// @brief Handler for the "Close" button click signal.

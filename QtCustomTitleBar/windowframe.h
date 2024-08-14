@@ -1,9 +1,8 @@
-#ifndef WINDOWFRAME_H
-#define WINDOWFRAME_H
+#pragma once
 
 #include <QFrame>
 #include <QMenuBar>
-#include <QStatusBar>
+#include <QMenu>
 
 namespace Ui {
 class WindowFrame;
@@ -17,11 +16,10 @@ public:
     ~WindowFrame();
 
 public:
-    void initTimer();
+    /// Init frame icons
     void initIcons();
-    void initMenuBar();
+    /// Show header menu.
     void showHeaderContextMenu(const QPoint &pos);
-
     /// Show or hide the window minimization button.
     void enableMinimum(bool enable);
     /// Show or hide the window maximization button.
@@ -52,6 +50,7 @@ private slots:
     void on_minimum_clicked();
     /// Handler for the "Collapse" button click signal.
     void on_collapse_clicked();
+
 private:
     /// Pointer to the user interface object.
     Ui::WindowFrame *ui;
@@ -59,12 +58,9 @@ private:
     QWidget *mMainBody;
     /// Window mPosition on the screen.
     QPoint mPosition;
-    /// Size of the window borders.
+    /// Size of the window borders for resize.
     int mBorderSize;
     /// Collapse flag.
     bool mIsCollapse;
-    /// Menu under header.
-    QMenuBar *mMenuBar;
 };
 
-#endif // WINDOWFRAME_H
