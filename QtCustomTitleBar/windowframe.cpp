@@ -76,12 +76,8 @@ WindowFrame::~WindowFrame(){
 
 /// @brief Init frame icons.
 void WindowFrame::initIcons(){
-    QPixmap pixmap(appIcon);
-    ui->icon->setPixmap(pixmap);
-    ui->icon->setScaledContents(true);
-    ui->icon->setAlignment(Qt::AlignCenter);
-    ui->icon->resize(24, 24);
 
+    this->setIcon(appIcon);
     ui->collapse->setIcon(QIcon(collapseHideIcon));
     ui->close->setIcon(QIcon(closeIcon));
     ui->maximum->setIcon(QIcon(maximizeIcon));
@@ -258,6 +254,24 @@ void WindowFrame::enableMaximum(bool enable) {
 void WindowFrame::enableClose(bool enable) {
     !enable ? ui->close->hide() : ui->close->show();
 }
+
+/// @brief set window icon
+void WindowFrame::setIcon(const QString &iPath)
+{
+    QPixmap pixmap(iPath);
+    ui->icon->setPixmap(pixmap);
+    ui->icon->setScaledContents(true);
+    ui->icon->setAlignment(Qt::AlignCenter);
+    ui->icon->resize(24, 24);
+}
+/// @brief set title for the window
+/// change the title on the label and also on the window title which is insible
+void WindowFrame::setTitle(const QString &title)
+{
+    ui->title->setText(title);
+    this->setWindowTitle(title);
+}
+
 
 /// @brief Override event filtering function for the WindowFrame class.
 /// @param obj Pointer to the object for which the event was generated.

@@ -26,6 +26,10 @@ public:
     void enableMaximum(bool enable);
     /// Show or hide the window close button.
     void enableClose(bool enable);
+    /// set window icon
+    void setIcon(const QString& iPath);
+    /// set window title
+    void setTitle(const QString& title);
 
 protected:
     /// Handler for the mouse press event.
