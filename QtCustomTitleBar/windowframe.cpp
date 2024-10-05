@@ -76,11 +76,7 @@ WindowFrame::~WindowFrame(){
 
 /// @brief Init frame icons.
 void WindowFrame::initIcons(){
-    QPixmap pixmap(appIcon);
-    ui->icon->setPixmap(pixmap);
-    ui->icon->setScaledContents(true);
-    ui->icon->setAlignment(Qt::AlignCenter);
-    ui->icon->resize(24, 24);
+    this->setIcon(appIcon);
 
     ui->collapse->setIcon(QIcon(collapseHideIcon));
     ui->close->setIcon(QIcon(closeIcon));
@@ -257,6 +253,23 @@ void WindowFrame::enableMaximum(bool enable) {
 /// @param enable If true, the button will be shown; if false, it will be hidden.
 void WindowFrame::enableClose(bool enable) {
     !enable ? ui->close->hide() : ui->close->show();
+}
+
+/// @brief set window icon
+/// @param iconPath - path to icon file
+void WindowFrame::setIcon(const QString &iconPath) {
+    QPixmap pixmap(iconPath);
+    ui->icon->setPixmap(pixmap);
+    ui->icon->setScaledContents(true);
+    ui->icon->setAlignment(Qt::AlignCenter);
+    ui->icon->resize(24, 24);
+}
+
+/// @brief set title for the window
+/// @param title
+void WindowFrame::setTitle(const QString &title) {
+    ui->title->setText(title);
+    this->setWindowTitle(title);
 }
 
 /// @brief Override event filtering function for the WindowFrame class.

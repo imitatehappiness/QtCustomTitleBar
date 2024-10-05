@@ -20,6 +20,7 @@ int main(int argc, char *argv[]){
     a.setStyleSheet(styleQSS);
 
     WindowFrame w(nullptr, new MainWindow());
+    w.setTitle("App title");
     w.show();
     return a.exec();
 }
