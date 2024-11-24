@@ -12,7 +12,10 @@
 ![Qt version](https://img.shields.io/badge/Qt-5.15.2-151515.svg?Color=EEE&logoColor=EEE)
 ![MinGW version](https://img.shields.io/badge/MinGW-5.3.0-151515.svg?Color=EEE&logoColor=EEE)
 
-This repository contains a basic template for a custom title bar in a C++ Qt application. The custom title bar provides essential functionality, such as hiding, dragging, maximizing, and closing the window. You can use this template as a starting point in your real projects to create a more personalized and visually appealing title bar for your Qt applications.
+# About project
+In standard C++/Qt applications, the window's title bar is managed by the operating system, which imposes limitations on customization. 
+
+This repository provides a template for creating a custom title bar in a C++ Qt application. The custom title bar replicates essential window functionality, including hiding, dragging, maximizing, and closing the window. It serves as an excellent starting point for developers looking to design a more personalized and visually appealing title bar for their Qt applications.
 
 ## Features
 ### 1. Interactive Window Controls
@@ -26,7 +29,7 @@ This repository contains a basic template for a custom title bar in a C++ Qt app
 - **Double-Click to Maximize/Restore**: Double-clicking the header toggles between maximized and restored states.
 
 ### 3. Context Menu
-- **Right-Click Menu on Header**: Right-clicking the header brings up a context menu with an "Exit" option to close the window.
+- **Right-Click Menu on Header**: Right-clicking the header brings up a context menu.
 
 <details>
   <summary>Preview</summary>
