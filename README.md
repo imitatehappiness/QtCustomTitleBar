@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
 
 }
 ```
-## Example
+## UI Demonstration
 
 <p align="center">
   <video src="https://github.com/user-attachments/assets/d4fdcd9a-8565-40e6-85cc-cbb7d70438e5" />
