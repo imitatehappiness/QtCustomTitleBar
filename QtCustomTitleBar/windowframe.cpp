@@ -138,6 +138,7 @@ void WindowFrame::on_collapse_clicked() {
 /// @brief Handler for the mouse press event.
 /// @param event Pointer to the QMouseEvent object containing event information.
 void WindowFrame::mousePressEvent(QMouseEvent *event) {
+#if QT_VERSION_MAJOR < 6
     if (event->buttons() == Qt::LeftButton) {
         QWidget* widget = childAt(event->x(), event->y());
         if(widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
@@ -151,6 +152,22 @@ void WindowFrame::mousePressEvent(QMouseEvent *event) {
             showHeaderContextMenu(event->pos());
         }
     }
+#else
+    if (event->buttons() == Qt::LeftButton) {
+        QWidget* widget = childAt(event->position().x(), event->position().y());
+        if(widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
+            mPosition.setX(event->position().x());
+            mPosition.setY(event->position().y());
+        }
+    }
+    if (event->button() == Qt::RightButton ) {
+        QWidget* widget = childAt(event->position().x(), event->position().y());
+        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon){
+            showHeaderContextMenu(event->pos());
+        }
+    }
+
+#endif
 }
 
 /// @brief Handler for the mouse move event within the window.
@@ -158,9 +175,15 @@ void WindowFrame::mousePressEvent(QMouseEvent *event) {
 /// @return No return value.
 void WindowFrame::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
+#if QT_VERSION_MAJOR < 6
         if (mPosition.x() != 0 || mPosition.y() != 0) {
             move(event->globalX() - mPosition.x(), event->globalY() - mPosition.y());
         }
+#else
+        if (mPosition.x() != 0 || mPosition.y() != 0) {
+            move(event->globalPosition().x() - mPosition.x(), event->globalPosition().x() - mPosition.y());
+        }
+#endif
     }
 }
 
@@ -176,7 +199,11 @@ void WindowFrame::mouseReleaseEvent(QMouseEvent *event) {
 /// @param event Pointer to the mouse double-click event object (QMouseEvent).
 void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
+#if QT_VERSION_MAJOR < 6
         QWidget* widget = childAt(event->x(), event->y());
+#else
+        QWidget* widget = childAt(event->position().x(), event->position().x());
+#endif
         if(widget == ui->LHeader) {
             if(isMaximized()) {
                 ui->maximum->setIcon(QIcon(maximizeIcon));
@@ -196,7 +223,13 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
 /// @param message Pointer to a structure containing event information (void*).
 /// @param result Pointer to a variable for returning the result (long*).
 /// @return The return value, true if the event was handled, otherwise false.
-bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result) {
+// Add support for Qt 6
+#if QT_VERSION_MAJOR < 6
+    bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result)
+#else
+    bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, qint64 *result)
+#endif
+{
     Q_UNUSED(eventType)
     MSG *param = static_cast<MSG *>(message);
 
