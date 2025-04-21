@@ -176,7 +176,11 @@ void WindowFrame::mouseReleaseEvent(QMouseEvent *event) {
 /// @param event Pointer to the mouse double-click event object (QMouseEvent).
 void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
+#if QT_VERSION_MAJOR < 6
         QWidget* widget = childAt(event->x(), event->y());
+#else
+        QWidget* widget = childAt(event->position().x(), event->position().x());
+#endif
         if(widget == ui->LHeader) {
             if(isMaximized()) {
                 ui->maximum->setIcon(QIcon(maximizeIcon));
@@ -196,7 +200,13 @@ void WindowFrame::mouseDoubleClickEvent(QMouseEvent *event) {
 /// @param message Pointer to a structure containing event information (void*).
 /// @param result Pointer to a variable for returning the result (long*).
 /// @return The return value, true if the event was handled, otherwise false.
-bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result) {
+// Add support for Qt 6
+#if QT_VERSION_MAJOR < 6
+    bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, long *result)
+#else
+    bool WindowFrame::nativeEvent(const QByteArray &eventType, void *message, qint64 *result)
+#endif
+{
     Q_UNUSED(eventType)
     MSG *param = static_cast<MSG *>(message);
 

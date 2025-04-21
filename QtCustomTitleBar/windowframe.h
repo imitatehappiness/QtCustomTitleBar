@@ -40,7 +40,12 @@ protected:
     /// Handler for the mouse double-click event within the window.
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     /// Handler for the native window event.
+// Add support for Qt 6
+#if QT_VERSION_MAJOR < 6
     bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+#else
+    bool nativeEvent(const QByteArray &eventType, void *message, qint64 *result) override;
+#endif
     /// Override event filtering function for the WindowFrame class.
     bool eventFilter(QObject *obj, QEvent *event) override;
 
