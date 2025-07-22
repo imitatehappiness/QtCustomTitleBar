@@ -4,6 +4,7 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+
 #body{
     background-color: rgb(33, 33, 33);
     border-bottom: 2px rgb(33, 33, 33);
@@ -18,7 +19,12 @@
     border-top-right-radius: 10px;
 }
 
-QPushButton {
+QMenuBar{
+    background-color: #eee;
+    color: rgb(70, 70, 70);
+}
+
+QPushButton#collapse {
     padding: 2px;
     margin: 2px;
     font: 10pt;
@@ -27,27 +33,66 @@ QPushButton {
     border-radius: 4px;
 }
 
-QMenuBar{
-    background-color: #eee;
-    color: rgb(70, 70, 70);
-}
-
-QPushButton:hover{
+QPushButton#collapse:hover{
     background-color: rgb(60, 60, 60);
     color: #EEEEEE;
 }
 
-QPushButton:pressed {
+QPushButton#collapse:pressed {
     border: 1px solid rgb(20, 20, 20);
     border-radius: 5px;
 }
 
-QPushButton#close:hover{
-    background-color: rgb(255, 50, 50);
+QPushButton#minimum {
+    padding: 2px;
+    margin: 2px;
+    font: 10pt;
+    background-color: rgb(20, 20, 20);
+    color: #EEEEEE;
+    border-radius: 4px;
+}
+
+QPushButton#minimum:hover{
+    background-color: rgb(60, 60, 60);
+    color: #EEEEEE;
+}
+
+QPushButton#minimum:pressed {
+    border: 1px solid rgb(20, 20, 20);
+    border-radius: 5px;
+}
+
+QPushButton#maximum {
+    padding: 2px;
+    margin: 2px;
+    font: 10pt;
+    background-color: rgb(20, 20, 20);
+    color: #EEEEEE;
+    border-radius: 4px;
+}
+
+QPushButton#maximum:hover{
+    background-color: rgb(60, 60, 60);
+    color: #EEEEEE;
+}
+
+QPushButton#maximum:pressed {
+    border: 1px solid rgb(20, 20, 20);
+    border-radius: 5px;
 }
 
 QPushButton#close{
+    padding: 2px;
+    margin: 2px;
+    font: 10pt;
+    background-color: rgb(20, 20, 20);
+    color: #EEEEEE;
+    border-radius: 4px;
     margin-right: 5px;
+}
+
+QPushButton#close:hover{
+    background-color: rgb(255, 50, 50);
 }
 
 QLabel{
