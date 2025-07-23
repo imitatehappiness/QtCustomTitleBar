@@ -24,77 +24,6 @@ QMenuBar{
     color: rgb(70, 70, 70);
 }
 
-QPushButton#collapse {
-    padding: 2px;
-    margin: 2px;
-    font: 10pt;
-    background-color: rgb(20, 20, 20);
-    color: #EEEEEE;
-    border-radius: 4px;
-}
-
-QPushButton#collapse:hover{
-    background-color: rgb(60, 60, 60);
-    color: #EEEEEE;
-}
-
-QPushButton#collapse:pressed {
-    border: 1px solid rgb(20, 20, 20);
-    border-radius: 5px;
-}
-
-QPushButton#minimum {
-    padding: 2px;
-    margin: 2px;
-    font: 10pt;
-    background-color: rgb(20, 20, 20);
-    color: #EEEEEE;
-    border-radius: 4px;
-}
-
-QPushButton#minimum:hover{
-    background-color: rgb(60, 60, 60);
-    color: #EEEEEE;
-}
-
-QPushButton#minimum:pressed {
-    border: 1px solid rgb(20, 20, 20);
-    border-radius: 5px;
-}
-
-QPushButton#maximum {
-    padding: 2px;
-    margin: 2px;
-    font: 10pt;
-    background-color: rgb(20, 20, 20);
-    color: #EEEEEE;
-    border-radius: 4px;
-}
-
-QPushButton#maximum:hover{
-    background-color: rgb(60, 60, 60);
-    color: #EEEEEE;
-}
-
-QPushButton#maximum:pressed {
-    border: 1px solid rgb(20, 20, 20);
-    border-radius: 5px;
-}
-
-QPushButton#close{
-    padding: 2px;
-    margin: 2px;
-    font: 10pt;
-    background-color: rgb(20, 20, 20);
-    color: #EEEEEE;
-    border-radius: 4px;
-    margin-right: 5px;
-}
-
-QPushButton#close:hover{
-    background-color: rgb(255, 50, 50);
-}
-
 QLabel{
     color: #eee;
 }
@@ -103,4 +32,40 @@ QStatusBar{
     background-color: rgb(20, 20, 20);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+QPushButton#collapse,
+QPushButton#minimum,
+QPushButton#maximum,
+QPushButton#close {
+    padding: 2px;
+    margin: 2px;
+    font: 10pt;
+    background-color: rgb(20, 20, 20);
+    color: #EEEEEE;
+    border-radius: 4px;
+    border: none !important; /* Убираем границу, если мешает */
+}
+
+QPushButton#collapse:hover,
+QPushButton#minimum:hover,
+QPushButton#maximum:hover {
+    background-color: rgb(60, 60, 60);
+    color: #EEEEEE;
+}
+
+QPushButton#collapse:pressed,
+QPushButton#minimum:pressed,
+QPushButton#maximum:pressed {
+    border: 1px solid rgb(20, 20, 20);
+    border-radius: 5px;
+}
+
+QPushButton#close:hover {
+    background-color: rgb(255, 50, 50);
+}
+
+QPushButton#close:pressed {
+    border: 1px solid rgb(20, 20, 20);
+    border-radius: 5px;
 }
