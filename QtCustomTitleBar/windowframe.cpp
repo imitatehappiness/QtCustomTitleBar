@@ -164,25 +164,38 @@ void WindowFrame::mousePressEvent(QMouseEvent *event) {
     }
 #else
     if (event->buttons() == Qt::LeftButton) {
-        QWidget* widget = childAt(event->position().x(), event->position().y());
-        if(widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
-            mPosition.setX(event->position().x());
-            mPosition.setY(event->position().y());
+        int x = static_cast<int>(event->position().x());
+        int y = static_cast<int>(event->position().y());
+        QWidget* widget = childAt(x, y);
+
+        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
+            if (isMaximized()) {
+                QPoint globalClickPos = event->globalPosition().toPoint();
+                showNormal();
+                ui->maximum->setIcon(QIcon(maximizeIcon));
+                mIsCollapse ? ui->header->setStyleSheet(headerCollapseStyle) : ui->header->setStyleSheet(headerDefaultStyle);
+                int newX = globalClickPos.x() - width() / 2;
+                int newY = globalClickPos.y() - ui->header->height() / 2;
+                move(newX, newY);
+                mPosition = QPoint(width() / 2, ui->header->height() / 2);
+            } else {
+                mPosition = QPoint(x, y);
+            }
         }
     }
-    if (event->button() == Qt::RightButton ) {
-        QWidget* widget = childAt(event->position().x(), event->position().y());
-        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon){
+
+    if (event->button() == Qt::RightButton) {
+        int x = static_cast<int>(event->position().x());
+        int y = static_cast<int>(event->position().y());
+        QWidget* widget = childAt(x, y);
+        if (widget == ui->LHeader || widget == ui->title || widget == ui->icon) {
             showHeaderContextMenu(event->pos());
         }
     }
-
 #endif
 }
 
-/// @brief Handler for the mouse move event within the window.
-/// @param event Pointer to the mouse move event object (QMouseEvent).
-/// @return No return value.
+
 void WindowFrame::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() == Qt::LeftButton) {
 #if QT_VERSION_MAJOR < 6
