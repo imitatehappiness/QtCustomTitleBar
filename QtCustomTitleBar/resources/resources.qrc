@@ -8,11 +8,5 @@
         <file>icons/collapse_hide.png</file>
         <file>icons/collapse_show.png</file>
         <file>icons/default_size.png</file>
-        <file>icons/close_light.png</file>
-        <file>icons/collapse_hide_light.png</file>
-        <file>icons/collapse_show_light.png</file>
-        <file>icons/default_size_light.png</file>
-        <file>icons/maximize_light.png</file>
-        <file>icons/minimize_light.png</file>
     </qresource>
 </RCC>
